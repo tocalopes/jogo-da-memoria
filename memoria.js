@@ -4,6 +4,7 @@ var images = [
     "tony-ramos.jpeg",
     "bob-esponja.jpg"
 ]
+var delay=1000;
 
 class card{
     constructor(width,height,posx,posy,imgUrl,isRight){
@@ -55,8 +56,15 @@ window.onload = function (){
     }
 
     function drawCard(card){
-        ctx.fillStyle = "#FF0";
-        ctx.fillRect(card.posx,card.posy,card.width,card.height);
+        console.log("desenhando card");
+        setTimeout(
+            function(){
+                ctx.fillStyle = "#FF0";
+                ctx.fillRect(card.posx,card.posy,card.width,card.height);
+            },
+            delay
+        )
+        
     }
 
     function drawImage(card){
@@ -81,31 +89,37 @@ window.onload = function (){
                 clickY >= card.posy &&
                 clickY <= card.posy + card.height){
                 if(card.isRight == 0){
-                    drawImage(card);
                     if(card1 == null){
                         card1 = card;
                         indexCard1 = i;
+                        drawImage(card1);
                     }else if(card2 == null){
                         card2 = card;
+                        drawImage(card2);
                         indexCard2 = i;
                         if (card1.imgUrl == card2.imgUrl){
-                            alert("acertou mizeravel");
+                            console.log("acertou mizeravel");
                             deck[indexCard1].isRight = 1;
                             deck[indexCard2].isRight = 1;
                             card1 = null;
                             card2 = null;
                             indexCard1 = null;
                             indexCard2 = null;
+                            console.log(card1);
+                            console.log(card2);
                         }else{
+                            console.log(card1);
+                            console.log(card2);
                             drawCard(card1);
                             drawCard(card2);
                             card1 = null;
                             card2 = null;
                             indexCard1 = null;
                             indexCard2 = null;
-                            
                         }
                     }else{
+                        console.log(card1);
+                        console.log(card2);
                         drawCard(card1);
                         drawCard(card2);
                         card1 = null;
