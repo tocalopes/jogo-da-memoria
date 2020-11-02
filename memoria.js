@@ -4,7 +4,7 @@ var images = [
     "tony-ramos.jpeg",
     "bob-esponja.jpg"
 ]
-var delay=1000;
+var delay=300;
 
 class card{
     constructor(width,height,posx,posy,imgUrl,isRight){
@@ -29,8 +29,9 @@ window.onload = function (){
     canvas.addEventListener("click",printMousePos);
     var ctx = canvas.getContext("2d");
 
-    loadDeck();   
-    
+    loadDeck();
+
+
     function loadDeck(){
         var posx = 10;
         var posy = 10;
@@ -45,15 +46,23 @@ window.onload = function (){
             deck.push(new card(width,height,posx,posy,images[i],0));
             posx += width + margin;
             deck.push(new card(width,height,posx,posy,images[i],0));
-            posx += width + margin;
-            
+            posx += width + margin;   
+        }
+
+        for(var i = 0; i < deck.length; i++){
+            var tempImg;
+            var tempIndex;
+            tempIndex = Math.floor(Math.random() * (9 - 0)) + 0;
+            tempImg = deck[i].imgUrl;
+            deck[i].imgUrl = deck[tempIndex].imgUrl;
+            deck[tempIndex].imgUrl = tempImg;
         }
 
         for(var i = 0; i < deck.length; i++ ){
             drawCard(deck[i]);
-        }
-
+        }   
     }
+
 
     function drawCard(card){
         console.log("desenhando card");
