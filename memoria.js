@@ -6,18 +6,22 @@ var images = [
 ]
 
 class card{
-    constructor(width,height,posx,posy,imgUrl,card1,card2){
+    constructor(width,height,posx,posy,imgUrl,isRight){
         this.width = width;
         this.height = height;
         this.posx = posx;
         this.posy = posy;
         this.imgUrl = imgUrl;
-        this.card1 = card1;
-        this.card2 = card2;
+        this.isRight = isRight;
     }
 }
 
 window.onload = function (){
+
+    var card1 = null;
+    var card2 = null;
+    var indexCard1 = null;
+    var indexCard2 = null;
 
     var deck = [];
     var canvas = document.getElementById("canvas");
@@ -37,9 +41,9 @@ window.onload = function (){
                 posx = 10;
                 posy = 200;
             }
-            deck.push(new card(width,height,posx,posy,images[i],0,0));
+            deck.push(new card(width,height,posx,posy,images[i],0));
             posx += width + margin;
-            deck.push(new card(width,height,posx,posy,images[i],0,0));
+            deck.push(new card(width,height,posx,posy,images[i],0));
             posx += width + margin;
             
         }
@@ -76,8 +80,41 @@ window.onload = function (){
                 clickX <= card.posx + card.width && 
                 clickY >= card.posy &&
                 clickY <= card.posy + card.height){
-                console.log("chablau");
-                drawImage(card);
+                if(card.isRight == 0){
+                    drawImage(card);
+                    if(card1 == null){
+                        card1 = card;
+                        indexCard1 = i;
+                    }else if(card2 == null){
+                        card2 = card;
+                        indexCard2 = i;
+                        if (card1.imgUrl == card2.imgUrl){
+                            alert("acertou mizeravel");
+                            deck[indexCard1].isRight = 1;
+                            deck[indexCard2].isRight = 1;
+                            card1 = null;
+                            card2 = null;
+                            indexCard1 = null;
+                            indexCard2 = null;
+                        }else{
+                            drawCard(card1);
+                            drawCard(card2);
+                            card1 = null;
+                            card2 = null;
+                            indexCard1 = null;
+                            indexCard2 = null;
+                            
+                        }
+                    }else{
+                        drawCard(card1);
+                        drawCard(card2);
+                        card1 = null;
+                        card2 = null;
+                        indexCard1 = null;
+                        indexCard2 = null;
+                    }
+                }
+                
             }
         }
 
