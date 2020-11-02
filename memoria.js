@@ -6,12 +6,14 @@ var images = [
 ]
 
 class card{
-    constructor(width,height,posx,posy,imgUrl){
+    constructor(width,height,posx,posy,imgUrl,card1,card2){
         this.width = width;
         this.height = height;
         this.posx = posx;
         this.posy = posy;
         this.imgUrl = imgUrl;
+        this.card1 = card1;
+        this.card2 = card2;
     }
 }
 
@@ -35,9 +37,9 @@ window.onload = function (){
                 posx = 10;
                 posy = 200;
             }
-            deck.push(new card(width,height,posx,posy,images[i]));
+            deck.push(new card(width,height,posx,posy,images[i],0,0));
             posx += width + margin;
-            deck.push(new card(width,height,posx,posy,images[i]));
+            deck.push(new card(width,height,posx,posy,images[i],0,0));
             posx += width + margin;
             
         }
